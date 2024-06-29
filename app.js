@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: 'http://127.0.0.1:5500'
+  origin: ['http://127.0.0.1:5500', 'https://srishti-me.github.io']
 }));
 
 // Routes
