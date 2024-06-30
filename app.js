@@ -6,11 +6,18 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.json());
 
+const allowedOrigins = ['http://127.0.0.1:5500', 'https://srishti-me.github.io/Hostel-management-frontend'];
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'https://srishti-me.github.io/Hostel-management-frontend']
+  origin: function (origin, callback) {
+    // Check if the incoming origin is allowed
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
-// Routes
 app.use('/api', routes);
 
 const PORT = process.env.PORT || 3000;
